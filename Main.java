@@ -9,14 +9,16 @@ public class Main {
 
     
     public static void main(String[] args) {
-        Rules[] rules = {new Rules("Ones", (Integer[] ary) ->{
+        // Rules bro like deadass this is bums
+        Rules[] rules = {
+            new Rules("Ones", (Integer[] ary) ->{
             int sum = 0;
             for(Integer i : ary){
                 if(i == 1){
                     sum += i;
                 }
             }
-            return sum;
+            return sum > 0?sum:-1;
         }), new Rules("Twos", (Integer[] ary) ->{
             int sum = 0;
             for(Integer i : ary){
@@ -24,7 +26,7 @@ public class Main {
                     sum += i;
                 }
             }
-            return sum;
+            return sum > 0?sum:-1;
         }),
         new Rules("Threes", (Integer[] ary) ->{
             int sum = 0;
@@ -33,7 +35,7 @@ public class Main {
                     sum += i;
                 }
             }
-            return sum;
+            return sum > 0?sum:-1;
         }),
         new Rules("Fours", (Integer[] ary) ->{
             int sum = 0;
@@ -42,7 +44,7 @@ public class Main {
                     sum += i;
                 }
             }
-            return sum;
+            return sum > 0?sum:-1;
         }),
         new Rules("Fives", (Integer[] ary) ->{
             int sum = 0;
@@ -51,7 +53,7 @@ public class Main {
                     sum += i;
                 }
             }
-            return sum;
+            return sum > 0?sum:-1;
         }),
         new Rules("Sixes", (Integer[] ary) ->{
             int sum = 0;
@@ -60,14 +62,14 @@ public class Main {
                     sum += i;
                 }
             }
-            return sum;
+            return sum > 0?sum:-1;
         }),
         new Rules("Chance", (Integer[] ary) ->{
             int sum = 0;
             for(Integer i : ary){
                 sum += i;
             }
-            return sum;
+            return sum > 0?sum:-1;
         }),
         new Rules("Small straight", (Integer[] ary) ->{
             Integer[] copied = ary.clone();
@@ -138,12 +140,14 @@ public class Main {
         };
 
 
-        Game game = new Game(5, 6, rules);
-        String title = "Yahtzee! By Dyno 1.0.67";
+        Game game = new Game(5, 6);
+        // 69 EDITS DAMNNNN
+        String title = "Yahtzee! By Dyno 1.0.69";
 
         JOptionPane.showMessageDialog(null, "Yahtzee made with C# not Java because Java sucks.\nAnd also I could've made this 3D with OpenGL in C++", title, JOptionPane.INFORMATION_MESSAGE);
         String name = JOptionPane.showInputDialog(null, "Enter a name and it better not be DYNO because I am gonna crash out.", title, JOptionPane.QUESTION_MESSAGE);
         while(name.toLowerCase().equals("dyno")){
+            // My name, my game, my rights
             name = JOptionPane.showInputDialog(null, "I said not DYNO! Enter a different name. NOW before I CRASHOUT. I WILL PULL UP UR IP ADDRESS WITH UR INTERNET!", "YOU HAVE SUCCESSFULLY RAGE BAITTED ME", JOptionPane.ERROR_MESSAGE);
         }
 
@@ -151,7 +155,8 @@ public class Main {
         CPU cpu = new CPU("Ronan-Dyno", rules);
 
         // 2 rounds for testing replace with rules.length
-        while(game.getRound() < 2){
+        while(game.getRound() < rules.length){
+            // Easy work 2 method is all I need :shush: sigma
             player.Turn(rules, game);
             cpu.Turn(rules, game);
             
@@ -159,11 +164,15 @@ public class Main {
             game.newRound();
 
         }
-
+        // Winning message
         if(player.getScore() > cpu.getScore())
             JOptionPane.showMessageDialog(null, "Congratulations " + player.name + "! You win with a score of " + player.getScore() + " to " + cpu.getScore() + "!", title, JOptionPane.INFORMATION_MESSAGE);
+        else if(player.getScore() < cpu.getScore())
+            JOptionPane.showMessageDialog(null, "Skill issue you suck. I hope you rage quit and crash out", "Skill issue, you suck!", JOptionPane.INFORMATION_MESSAGE);
 
-        JOptionPane.showMessageDialog(null, "Good game", title, JOptionPane.INFORMATION_MESSAGE);
+
+
+        JOptionPane.showMessageDialog(null, "Visit https://github.com/Dynosuars/Yahtzee", title, JOptionPane.INFORMATION_MESSAGE);
         System.exit(0);
     }
 }

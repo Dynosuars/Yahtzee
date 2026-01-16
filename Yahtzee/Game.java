@@ -3,13 +3,11 @@ package Yahtzee;
 public class Game {
     private final Dice[] die;
     private final Integer[] rolls;
-    private final Rules[] rules;
     private int round;
 
-    public Game(int size, int sides, Rules[] rules) {
+    public Game(int size, int sides) {
         this.die = new Dice[size];
         this.rolls = new Integer[size];
-        this.rules = rules;
         this.round = 0;
         
         for(int i = 0 ; i < size; i++){

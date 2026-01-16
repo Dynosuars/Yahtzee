@@ -7,9 +7,13 @@ public class CPU extends Player{
         super(name, rules);
     }
 
+    /**
+     * I hope this is lowkey kinda tuff because it's kinda AI
+     * @param rules<Rules>, the rule sets
+     * @param game<Game>, the game object
+     */
     @Override
     public void Turn(Rules[] rules, Game game) {
-        //Roll Phase
         int rolls = 0;
         boolean roll = true;
         Integer[] keep = new Integer[0];
@@ -51,15 +55,30 @@ public class CPU extends Player{
             JOptionPane.showMessageDialog(null, this.name + " rolled:\n" + String.join(" ", java.util.Arrays.stream(current).map(Object::toString).toArray(String[]::new)), this.name + "'s roll", JOptionPane.INFORMATION_MESSAGE);
 
             rolls++;
-            if(rolls >= 3){
+            if(rolls >= 2){
                 roll = false;
             }
         }
 
-        //Choose Rule Phase
         Rules[] avaliable = util.apply(rules, this.usedRules, game.getRoll());
 
-        //Simple AI: Choose highest scoring rule
+        if(avaliable.length == 0){
+            String output = this.name + " has no available rules to apply!\nCurrent Roll:\n";
+            for(Integer i : game.getRoll()){
+                output += i + " ";
+            }
+
+            for(int i = 0; i < this.usedRules.length; i++){
+                if(!this.usedRules[i]){
+                    this.usedRules[i] = true;
+                    output += "\n" + this.name + " has been forced to skip the rule: " + rules[i].name + " As a punishment";
+                    JOptionPane.showMessageDialog(null, output, "Skill issue",JOptionPane.INFORMATION_MESSAGE);
+                    break;
+                };
+            }
+            return;
+        }
+        
         int bestIdx = 0;
         int bestScore = -1;
         for(int i = 0; i < avaliable.length; i++){
@@ -76,8 +95,5 @@ public class CPU extends Player{
         this.usedRules[bestIdx] = true;
     }
 
-    public int getScore(){
-        return this.score;
-    }
     
 }
